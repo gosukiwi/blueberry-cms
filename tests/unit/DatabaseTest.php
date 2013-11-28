@@ -1,16 +1,16 @@
 <?php
-require_once __DIR__ . '/../bb-content/lib/database.php';
+require_once __DIR__ . '/../../bb-content/lib/database.php';
 
 class DatabaseTest extends PHPUnit_Framework_TestCase
 {
     private $db;
 
     public function setUp() {
-        $this->db = new Database();
+        $this->db = new Database('test');
     }
 
     public function tearDown() {
-        $this->rmdir(__DIR__ . '/../bb-content/data/test-table/');
+        $this->rmdir(__DIR__ . '/../../bb-content/data/test/');
     }
 
     /*
@@ -28,8 +28,8 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
             'age' => 18,
             'gender' => 'Male'
         ));
-        $this->assertTrue(file_exists(__DIR__ . '/../bb-content/data/test-table/entry_1.php'));
-        $this->assertTrue(file_exists(__DIR__ . '/../bb-content/data/test-table/meta.php'));
+        $this->assertTrue(file_exists(__DIR__ . '/../../bb-content/data/test/test-table/entry_1.php'));
+        $this->assertTrue(file_exists(__DIR__ . '/../../bb-content/data/test/test-table/meta.php'));
 
         // test retrieve
         $user = $db->table('test-table')->find(1);
@@ -107,7 +107,7 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
         $files = glob($dirPath . '*', GLOB_MARK);
         foreach ($files as $file) {
             if (is_dir($file)) {
-                self::rmdir($file);
+                $this->rmdir($file);
             } else {
                 unlink($file);
             }

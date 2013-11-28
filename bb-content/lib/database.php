@@ -18,8 +18,16 @@ class Database
     private $data_dir;
     private $query;
 
-    public function __construct() {
-        $this->data_dir = __DIR__ . '/../data/';
+    /**
+     * Creates a new database instance, by default, it connects
+     * to 'prod' (production), but it can accept any string.
+     */
+    public function __construct($db = 'prod') {
+        $this->data_dir = __DIR__ . '/../data/' . $db . '/';
+
+        if(!is_dir($this->data_dir)) {
+            mkdir($this->data_dir);
+        }
     }
 
     public function table($name) {
@@ -223,3 +231,4 @@ class Query
         $this->order = 'ASC';
     }
 }
+
