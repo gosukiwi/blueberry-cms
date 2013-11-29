@@ -1,0 +1,1 @@
+a:3:{s:8:"username";s:5:"admin";s:8:"password";s:4:"root";s:8:"language";s:5:"en_us";}
