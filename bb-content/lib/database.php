@@ -78,6 +78,17 @@ class Database
         return $obj;
     }
 
+    public function update($id, $val) {
+        $table = $this->query->table;
+        $entry_file = $this->data_dir . $table . '/entry_' . $id . '.php';
+        if(!file_exists($entry_file)) {
+            throw new Exception('Could not find entry with id ' . $id);
+        }
+
+        file_put_contents($entry_file, serialize($val), LOCK_EX);
+        return $val;
+    }
+
     /*
      * Removes entry with the given id
      */

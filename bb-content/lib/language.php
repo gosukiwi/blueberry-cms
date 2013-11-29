@@ -48,7 +48,7 @@ class Language
             return $key;
         }
 
-        if(!is_null($values)) {
+        if(is_array($values)) {
             foreach($values as $key => $val) {
                 $lang = preg_replace('/{{\s*(.*?)\s*}}/i', $val, $lang);
             }

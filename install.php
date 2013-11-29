@@ -10,10 +10,10 @@ function __($key, $value = null) {
 }
 
 $errors = array();
+$installed = false;
 
 if($_POST) {
-    $env = (isset($_GET['env']) && $_GET['env'] == 'test') ? 'test' : 'prod';
-    $db = new Database($env);
+    
 
     // get data
     $username = $_POST['username'];
@@ -28,8 +28,23 @@ if($_POST) {
         $errors[] = __('install.errors.password_too_short', array('min_chars' => 4));
     }
 
+    // if data is valid, install
     if(count($errors) == 0) {
-        die('<h1>ok</h1>');
+        $env = (isset($_GET['env']) && $_GET['env'] == 'test') ? 'test' : 'prod';
+        $db = new Database($env);
+        $data = array(
+            'username' => $username,
+            'password' => $password,
+            'language' => $language,
+        );
+        $config = $db->table('config')->find(1);
+        if(is_null($config)) {
+            $db->table('config')->insert($data);
+        } else {
+            $db->table('config')->update(1, $data);
+        }
+
+        $installed = true;
     }
 }
 ?>
@@ -94,14 +109,14 @@ if($_POST) {
             font-weight: 300;
         }
 
-        div#error-message {
+        div.alert {
             background: #1f8dd6;
             padding: 0.3em 1em;
             border-radius: 3px;
             color: #fff;
         }
 
-        div#error-message h2 {
+        div.alert h2 {
             font-weight: 300;
             font-size: 20px;
         }
@@ -131,7 +146,7 @@ if($_POST) {
                     <h1><?php echo __('install.settings'); ?></h1>
 
                     <?php if(count($errors) > 0): ?>
-                    <div id="error-message">
+                    <div class="alert" id="error-message">
                     <h2><?php echo __('install.error_title'); ?></h2>
                         <ul>
                             <?php foreach($errors as $error): ?>
@@ -140,6 +155,21 @@ if($_POST) {
                         </ul>
                     </div>
                     <?php endif; ?>
+
+                    <div class="alert">
+                        <?php echo __('install.is_data_dir_writable'); ?>
+                        <?php if(is_writable(__DIR__ . '/bb-content/data/')): ?>
+                            <strong><?php echo __('install.yes'); ?></strong>
+                        <?php else: ?>
+                        <strong><?php echo __('install.no'); ?></strong> - <?php echo __('install.data_dir_error'); ?>
+                        <?php endif; ?>
+                    </div>
+
+                    <?php if($installed): ?>
+
+                    <p><?php echo __('install.success', array('url' => 'bb-admin/')); ?></p>
+
+                    <?php else: ?>
 
                     <form action="install.php" method="post" class="pure-form pure-form-aligned">
                         <fieldset>
@@ -177,6 +207,8 @@ if($_POST) {
                             </div>
                         </fieldset>
                     </form>
+
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

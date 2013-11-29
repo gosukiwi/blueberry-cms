@@ -93,6 +93,14 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(count($entries), 1);
         $this->assertEquals($entries[0]['title'], 'Entry 1');
         $this->assertEquals($entries[0]['author'], 'Author 1');
+
+        // test update
+        $first = $db->table('test-table')->find(1);
+        $this->assertNotNull($first);
+        $first['new-val'] = 12;
+        $db->update(1, $first);
+        $retrieve = $db->table('test-table')->find(1);
+        $this->assertEquals(12, $retrieve['new-val']);
     }
 
     private function rmdir($dirPath) {
