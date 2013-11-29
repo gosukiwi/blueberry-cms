@@ -29,11 +29,18 @@ if($_POST) {
 
     // if data is valid, install
     if(count($errors) == 0) {
+        $base_uri = explode('install.php', $_SERVER['REQUEST_URI']);
+        $base_uri = $base_uri[0];
+
         $db = new Database($env);
         $data = array(
             'username' => $username,
             'password' => $password,
             'language' => $language,
+            'base_uri' => $base_uri,
+            'admin_uri' => $base_uri . 'bb-admin/',
+            'admin_theme' => 'default',
+            'theme' => 'default',
         );
         $config = $db->table('config')->find(1);
         if(is_null($config)) {

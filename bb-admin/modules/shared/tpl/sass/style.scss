@@ -1,0 +1,154 @@
+/* Colors */
+$blue: #1F8DD6;
+$dark-blue: #196FAA;
+$light-blue: #70BAEA;
+
+/* Mixins */
+
+/* Hover purecss style gradient */
+@mixin hover-gradient() {
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(transparent),color-stop(40%,rgba(0,0,0,.05)),to(rgba(0,0,0,.1)));
+    background-image: -webkit-linear-gradient(transparent,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1));
+    background-image: -moz-linear-gradient(top,rgba(0,0,0,.05) 0,rgba(0,0,0,.1));
+    background-image: -ms-linear-gradient(transparent,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1));
+    background-image: -o-linear-gradient(transparent,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1));
+    background-image: linear-gradient(transparent,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1));
+}
+
+body,
+.pure-g [class *= "pure-u"],
+.pure-g-r [class *= "pure-u"] {
+    font-family: 'Lato', sans-serif;
+}
+
+div#header {
+    background-color: $blue;
+    color: white;
+
+    h1 {
+        font-weight: 300;
+        padding: 10px;
+        margin: 0px;
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    }
+}
+
+div#content-container {
+    width: 960px;
+
+    div#content {
+        h1 {
+            font-weight: 300;
+            margin: 0px;
+            padding: 10px 0px;
+        }
+    }
+
+    div#login-box {
+        background-color: $blue;
+        color: white;
+        padding: 15px;
+        margin-top: 20px;
+
+        h1 {
+            font-weight: 300;
+            padding: 0px;
+            margin: 0px;
+            margin-bottom: 15px;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin-top: 3px;
+            border: none;
+            background-color: white;
+            color: #333;
+            font-family: 'Lato', sans-serif;
+            padding: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            background-color: $dark-blue;
+            margin-top: 3px;
+            text-transform: uppercase;
+        }
+    }
+}
+
+div#dashboard {
+    padding-left: 20%;
+    position: relative;
+}
+
+div#dashboard-menu-container {
+    background-color: $blue;
+    color: white;
+    position: fixed;
+    width: 20%;
+    margin-left: -20%;
+    top: 59px;
+    bottom: 0;
+
+    div#dashboard-menu {
+        h1 {
+            margin: 0px;
+            padding: 0px;
+            font-weight: 300;
+            font-size: 25px;
+            padding: 0px 10px;
+        }
+
+        ul {
+            padding: 0px 10px;
+            margin: 0px;
+            margin-bottom: 10px;
+            list-style: none;
+            
+            li {
+                padding: 3px;
+                margin: 0px;
+
+                &:hover {
+                    background-color: $light-blue;
+                }
+
+                a {
+                    display: block;
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+div#dashboard-content-container {
+    div#dashboard-content {
+        padding-left: 7px;
+        padding-top: 4px;
+
+        h1 {
+            font-weight: 300;
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+}
+
+div#footer {
+    text-align: center;
+    color: #999;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+}

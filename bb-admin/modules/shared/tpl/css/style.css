@@ -1,0 +1,101 @@
+/* Colors */
+/* Mixins */
+/* Hover purecss style gradient */
+body,
+.pure-g [class*="pure-u"],
+.pure-g-r [class*="pure-u"] {
+  font-family: 'Lato', sans-serif; }
+
+div#header {
+  background-color: #1f8dd6;
+  color: white; }
+  div#header h1 {
+    font-weight: 300;
+    padding: 10px;
+    margin: 0px; }
+    div#header h1 a {
+      text-decoration: none;
+      color: white; }
+
+div#content-container {
+  width: 960px; }
+  div#content-container div#content h1 {
+    font-weight: 300;
+    margin: 0px;
+    padding: 10px 0px; }
+  div#content-container div#login-box {
+    background-color: #1f8dd6;
+    color: white;
+    padding: 15px;
+    margin-top: 20px; }
+    div#content-container div#login-box h1 {
+      font-weight: 300;
+      padding: 0px;
+      margin: 0px;
+      margin-bottom: 15px; }
+    div#content-container div#login-box input {
+      display: block;
+      width: 100%;
+      margin-top: 3px;
+      border: none;
+      background-color: white;
+      color: #333;
+      font-family: 'Lato', sans-serif;
+      padding: 5px;
+      font-size: 14px;
+      box-sizing: border-box; }
+    div#content-container div#login-box button {
+      width: 100%;
+      background-color: #196faa;
+      margin-top: 3px;
+      text-transform: uppercase; }
+
+div#dashboard {
+  padding-left: 20%;
+  position: relative; }
+
+div#dashboard-menu-container {
+  background-color: #1f8dd6;
+  color: white;
+  position: fixed;
+  width: 20%;
+  margin-left: -20%;
+  top: 59px;
+  bottom: 0; }
+  div#dashboard-menu-container div#dashboard-menu h1 {
+    margin: 0px;
+    padding: 0px;
+    font-weight: 300;
+    font-size: 25px;
+    padding: 0px 10px; }
+  div#dashboard-menu-container div#dashboard-menu ul {
+    padding: 0px 10px;
+    margin: 0px;
+    margin-bottom: 10px;
+    list-style: none; }
+    div#dashboard-menu-container div#dashboard-menu ul li {
+      padding: 3px;
+      margin: 0px; }
+      div#dashboard-menu-container div#dashboard-menu ul li:hover {
+        background-color: #70baea; }
+      div#dashboard-menu-container div#dashboard-menu ul li a {
+        display: block;
+        text-decoration: none;
+        color: white; }
+
+div#dashboard-content-container div#dashboard-content {
+  padding-left: 7px;
+  padding-top: 4px; }
+  div#dashboard-content-container div#dashboard-content h1 {
+    font-weight: 300;
+    margin: 0px;
+    padding: 0px; }
+
+div#footer {
+  text-align: center;
+  color: #999;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  font-size: 13px; }

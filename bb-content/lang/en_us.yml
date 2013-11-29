@@ -16,3 +16,5 @@ install:
         password_too_short: 'The password is too short, must be at least {{min_chars}} characters long'
     error_title: 'Oops! It seems the form was invalid'
     success: 'Blueberry is now installed. You can now log in by clicking <a href="{{url}}">here</a>.'
+admin:
+    title: 'Blueberry Administration Panel'
