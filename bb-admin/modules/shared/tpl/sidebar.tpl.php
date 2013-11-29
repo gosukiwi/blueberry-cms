@@ -5,6 +5,11 @@
             <li><a href="<?php echo bb('admin_uri'); ?>?module=pages&action=manage">Manage Pages</a></li>
             <li><a href="<?php echo bb('admin_uri'); ?>?module=pages&action=new">New Page</a></li>
         </ul>
+
+        <h1>Menus</h1>
+        <ul>
+            <li><a href="<?php echo bb('admin_uri'); ?>?module=menus&action=manage">Manage Menus</a></li>
+        </ul>
         
         <h1>Account</h1>
         <ul>

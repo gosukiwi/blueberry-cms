@@ -96,6 +96,7 @@ div#dashboard-menu-container {
     margin-left: -20%;
     top: 59px;
     bottom: 0;
+    z-index: 1000;
 
     div#dashboard-menu {
         h1 {
@@ -139,6 +140,7 @@ div#dashboard-content-container {
             font-weight: 300;
             margin: 0px;
             padding: 0px;
+            font-size: 30px;
         }
     }
 }
@@ -151,4 +153,5 @@ div#footer {
     width: 100%;
     padding: 10px;
     font-size: 13px;
+    border-top: 1px solid #ccc;
 }

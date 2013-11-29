@@ -61,7 +61,8 @@ div#dashboard-menu-container {
   width: 20%;
   margin-left: -20%;
   top: 59px;
-  bottom: 0; }
+  bottom: 0;
+  z-index: 1000; }
   div#dashboard-menu-container div#dashboard-menu h1 {
     margin: 0px;
     padding: 0px;
@@ -89,7 +90,8 @@ div#dashboard-content-container div#dashboard-content {
   div#dashboard-content-container div#dashboard-content h1 {
     font-weight: 300;
     margin: 0px;
-    padding: 0px; }
+    padding: 0px;
+    font-size: 30px; }
 
 div#footer {
   text-align: center;
@@ -98,4 +100,5 @@ div#footer {
   bottom: 0;
   width: 100%;
   padding: 10px;
-  font-size: 13px; }
+  font-size: 13px;
+  border-top: 1px solid #ccc; }
