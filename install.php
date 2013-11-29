@@ -1,15 +1,43 @@
 <?php
 // Load language
-require_once __DIR__ . '/bb-content/lang/en_us.php';
+require_once __DIR__ . '/bb-content/lib/database.php';
+require_once __DIR__ . '/bb-content/lib/language.php';
+
+$lang = new Language('en_us');
+function __($key, $value = null) {
+    global $lang;
+    return $lang->get($key, $value);
+}
+
+$errors = array();
 
 if($_POST) {
-    die();
+    $env = (isset($_GET['env']) && $_GET['env'] == 'test') ? 'test' : 'prod';
+    $db = new Database($env);
+
+    // get data
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $language = $_POST['language'];
+
+    if(strlen($username) < 4) {
+        $errors[] = __('install.errors.username_too_short', array('min_chars' => 4));
+    }
+
+    if(strlen($password) < 4) {
+        $errors[] = __('install.errors.password_too_short', array('min_chars' => 4));
+    }
+
+    if(count($errors) == 0) {
+        die('<h1>ok</h1>');
+    }
 }
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <title><?php echo __('install.title'); ?></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
@@ -65,9 +93,22 @@ if($_POST) {
         div#container div#content h1 {
             font-weight: 300;
         }
+
+        div#error-message {
+            background: #1f8dd6;
+            padding: 0.3em 1em;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        div#error-message h2 {
+            font-weight: 300;
+            font-size: 20px;
+        }
         </style>
     </head>
     <body>
+
         <div class="pure-g" id="header">
             <div class="pure-u-1-2" id="title">
                 <h1><?php echo __('install.title'); ?></h1>
@@ -88,6 +129,18 @@ if($_POST) {
             <div class="pure-u-1">
                 <div id="content">
                     <h1><?php echo __('install.settings'); ?></h1>
+
+                    <?php if(count($errors) > 0): ?>
+                    <div id="error-message">
+                    <h2><?php echo __('install.error_title'); ?></h2>
+                        <ul>
+                            <?php foreach($errors as $error): ?>
+                                <li><?php echo $error; ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+
                     <form action="install.php" method="post" class="pure-form pure-form-aligned">
                         <fieldset>
                             <div class="pure-control-group">
@@ -101,7 +154,7 @@ if($_POST) {
 
                             <div class="pure-control-group">
                                 <label for="name"><?php echo __('install.password'); ?></label>
-                                <input class="pure-input-1-2" id="name" name="username" type="password" placeholder="<?php echo __('install.password'); ?>">
+                                <input class="pure-input-1-2" id="name" name="password" type="password" placeholder="<?php echo __('install.password'); ?>">
                             </div>
 
                             <div class="pure-control-group">
@@ -117,7 +170,7 @@ if($_POST) {
                             </div>
 
                             <div class="pure-controls">
-                                <button type="submit" class="pure-button pure-button-primary">
+                                <button id="btn-install" type="submit" class="pure-button pure-button-primary">
                                     <i class="fa fa-wrench"></i>
                                     <?php echo __('install.btn_install'); ?>
                                 </button>
