@@ -103,6 +103,23 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(12, $retrieve['new-val']);
     }
 
+    public function testCacheIsCreated() {
+        $db = $this->db;
+        for($i = 1; $i <= 10; $i++) {
+            $db->table('test-table')->insert(array('name' => 'entry #' . $i));
+        }
+
+        $all = $db->table('test-table')->all();
+        $files = glob(__DIR__ . '/../../bb-content/data/test/test-table/cache_*');
+        $this->assertEquals(1, count($files));
+
+        $db->table('test-table')->filter(array('name' => 'entry #2'));
+        $db->table('test-table')->order('DESC')->limit(2)->offset(1)->all();
+
+        $files = glob(__DIR__ . '/../../bb-content/data/test/test-table/cache_*');
+        $this->assertEquals(3, count($files));
+    }
+
     private function rmdir($dirPath) {
         if (!is_dir($dirPath)) {
             throw new InvalidArgumentException("$dirPath must be a directory");

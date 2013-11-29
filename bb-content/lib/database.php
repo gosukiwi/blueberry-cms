@@ -74,6 +74,11 @@ class Database
         $meta['count'] = $meta['count'] + 1;
         file_put_contents($this->data_dir . $table . '/meta.php', serialize($meta), LOCK_EX);
 
+        // invalidate cache
+        foreach(glob($this->data_dir . $table . '/cache_*') as $cache_file) {
+            unlink($cache_file);
+        }
+
         // Return the new entry data
         return $obj;
     }
@@ -86,6 +91,12 @@ class Database
         }
 
         file_put_contents($entry_file, serialize($val), LOCK_EX);
+
+        // invalidate cache
+        foreach(glob($this->data_dir . $table . '/cache_*') as $cache_file) {
+            unlink($cache_file);
+        }
+
         return $val;
     }
 
@@ -185,6 +196,13 @@ class Database
         $offset = $this->query->offset;
         $filter = $this->query->filter;
 
+        // seek for cache
+        $cache_name = sha1($table . $order . $limit . $offset . serialize($filter));
+        $cache_file = $this->data_dir . $table . '/cache_' . $cache_name . '.php';
+        if(file_exists($cache_file)) {
+            return unserialize(file_get_contents($cache_file));
+        }
+
         $metadata = $this->meta();
         $entries = $metadata['entries'];
 
@@ -224,6 +242,8 @@ class Database
             }
         }
 
+        // create cache
+        file_put_contents($cache_file, serialize($output), LOCK_EX);
         return $output;
     }
 }

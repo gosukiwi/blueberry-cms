@@ -11,10 +11,9 @@ function __($key, $value = null) {
 
 $errors = array();
 $installed = false;
+$env = (@$_GET['env'] == 'test') ? 'test' : 'prod';
 
 if($_POST) {
-    
-
     // get data
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -30,7 +29,6 @@ if($_POST) {
 
     // if data is valid, install
     if(count($errors) == 0) {
-        $env = (isset($_GET['env']) && $_GET['env'] == 'test') ? 'test' : 'prod';
         $db = new Database($env);
         $data = array(
             'username' => $username,
@@ -114,6 +112,7 @@ if($_POST) {
             padding: 0.3em 1em;
             border-radius: 3px;
             color: #fff;
+            margin-bottom: 10px;
         }
 
         div.alert h2 {
@@ -167,11 +166,11 @@ if($_POST) {
 
                     <?php if($installed): ?>
 
-                    <p><?php echo __('install.success', array('url' => 'bb-admin/')); ?></p>
+                    <p id="success-message"><?php echo __('install.success', array('url' => 'bb-admin/')); ?></p>
 
                     <?php else: ?>
 
-                    <form action="install.php" method="post" class="pure-form pure-form-aligned">
+                    <form action="install.php?env=<?php echo $env; ?>" method="post" class="pure-form pure-form-aligned">
                         <fieldset>
                             <div class="pure-control-group">
                                 <p><?php echo __('install.section_1_desc'); ?></p>
