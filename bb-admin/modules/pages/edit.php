@@ -4,6 +4,12 @@ if(!defined('BB-ADMIN')) die('This file cannot be accessed directly.');
 // load the database library
 lib('database');
 
+$db = new Database();
+$entry = $db->table('pages')->find((int)$_GET['id']);
+if(is_null($entry)) {
+    die('Invalid entry');
+}
+
 $message = null;
 
 if($_POST) {
@@ -21,18 +27,15 @@ if($_POST) {
     }
 
     if(count($errors) == 0) {
-        $data = array(
-            'title' => $title,
-            'content' => $content,
-            'created_at' => time(),
-            'updated_at' => time(),
-        );
-        $db = new Database();
-        $db->table('pages')->insert($data);
-        $message = __('admin.pages.new_success');
+        $entry['title'] = $title;
+        $entry['content'] = $content;
+        $entry['updated_at'] = time();
+        $db->table('pages')->update($entry['id'], $entry);
+        $message = __('admin.pages.edit.success');
     }
 }
 
-tpl(__DIR__ . '/tpl/new.tpl.php', array(
+tpl(__DIR__ . '/tpl/edit.tpl.php', array(
     'message' => $message,
+    'entry' => $entry,
 ));

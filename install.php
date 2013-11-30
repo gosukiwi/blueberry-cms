@@ -18,6 +18,7 @@ if($_POST) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $language = $_POST['language'];
+    $timezone = floatval($_POST['timezone']);
 
     if(strlen($username) < 4) {
         $errors[] = __('install.errors.username_too_short', array('min_chars' => 4));
@@ -37,6 +38,7 @@ if($_POST) {
             'username' => $username,
             'password' => $password,
             'language' => $language,
+            'timezone' => $timezone,
             'base_uri' => $base_uri,
             'admin_uri' => $base_uri . 'bb-admin/',
             'admin_theme' => 'default',
@@ -193,13 +195,13 @@ if($_POST) {
                             </div>
 
                             <div class="pure-control-group">
-                                <label for="name"><?php echo __('install.username'); ?></label>
-                                <input class="pure-input-1-2" id="name" name="username" type="text" placeholder="<?php echo __('install.username'); ?>">
+                                <label for="username"><?php echo __('install.username'); ?></label>
+                                <input class="pure-input-1-2" id="username" name="username" type="text" placeholder="<?php echo __('install.username'); ?>">
                             </div>
 
                             <div class="pure-control-group">
-                                <label for="name"><?php echo __('install.password'); ?></label>
-                                <input class="pure-input-1-2" id="name" name="password" type="password" placeholder="<?php echo __('install.password'); ?>">
+                                <label for="password"><?php echo __('install.password'); ?></label>
+                                <input class="pure-input-1-2" id="password" name="password" type="password" placeholder="<?php echo __('install.password'); ?>">
                             </div>
 
                             <div class="pure-control-group">
@@ -207,10 +209,47 @@ if($_POST) {
                             </div>
 
                             <div class="pure-control-group">
-                                <label for="password"><?php echo __('install.language'); ?></label>
+                                <label for="language"><?php echo __('install.language'); ?></label>
                                 <select id="language" name="language" class="pure-input-1-2">
                                     <option value="en_us">English</option>
                                     <option value="es_ar">Español</option>
+                                </select>
+                            </div>
+
+                            <div class="pure-control-group">
+                                <label for="timezone"><?php echo __('install.timezone'); ?></label>
+                                <select name="timezone" id="timezone">
+                                    <option value="-12.0">(GMT -12:00) Eniwetok, Kwajalein</option>
+                                    <option value="-11.0">(GMT -11:00) Midway Island, Samoa</option>
+                                    <option value="-10.0">(GMT -10:00) Hawaii</option>
+                                    <option value="-9.0">(GMT -9:00) Alaska</option>
+                                    <option value="-8.0">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+                                    <option value="-7.0">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+                                    <option value="-6.0">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+                                    <option value="-5.0">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+                                    <option value="-4.0">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+                                    <option value="-3.5">(GMT -3:30) Newfoundland</option>
+                                    <option value="-3.0">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+                                    <option value="-2.0">(GMT -2:00) Mid-Atlantic</option>
+                                    <option value="-1.0">(GMT -1:00 hour) Azores, Cape Verde Islands</option>
+                                    <option value="0.0">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+                                    <option value="1.0">(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris</option>
+                                    <option value="2.0">(GMT +2:00) Kaliningrad, South Africa</option>
+                                    <option value="3.0">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+                                    <option value="3.5">(GMT +3:30) Tehran</option>
+                                    <option value="4.0">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+                                    <option value="4.5">(GMT +4:30) Kabul</option>
+                                    <option value="5.0">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+                                    <option value="5.5">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+                                    <option value="5.75">(GMT +5:45) Kathmandu</option>
+                                    <option value="6.0">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+                                    <option value="7.0">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+                                    <option value="8.0">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+                                    <option value="9.0">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+                                    <option value="9.5">(GMT +9:30) Adelaide, Darwin</option>
+                                    <option value="10.0">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+                                    <option value="11.0">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+                                    <option value="12.0">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
                                 </select>
                             </div>
 

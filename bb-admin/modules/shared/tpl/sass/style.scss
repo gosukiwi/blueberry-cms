@@ -24,6 +24,8 @@ body,
 div#header {
     background-color: $blue;
     color: white;
+    position: fixed;
+    z-index: 1100;
 
     h1 {
         font-weight: 300;
@@ -85,7 +87,10 @@ div#content-container {
 
 div#dashboard {
     padding-left: 20%;
+    padding-top: 60px;
+    padding-bottom: 40px;
     position: relative;
+    z-index: 600;
 }
 
 div#dashboard-menu-container {
@@ -132,9 +137,12 @@ div#dashboard-menu-container {
 }
 
 div#dashboard-content-container {
+    background-color: white;
+
     div#dashboard-content {
         padding-left: 7px;
         padding-top: 4px;
+        padding-bottom: 10px;
         width: 99%;
 
         h1 {
@@ -162,8 +170,23 @@ div#dashboard-content-container {
             text-transform: uppercase;
         }
 
-        a {
-            color: #444;
+        table {
+            width: 100%;
+
+            td:last-child {
+                width: 250px;
+                text-align: right;
+            }
+        }
+
+        div.pagination {
+            margin: 20px;
+            text-align: center;
+        }
+
+        div.option-buttons {
+            margin-top: 10px;
+            text-align: center;
         }
     }
 }
@@ -178,4 +201,5 @@ div#footer {
     font-size: 13px;
     border-top: 1px solid #ccc;
     text-transform: lowercase;
+    z-index: 500;
 }

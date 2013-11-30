@@ -5,5 +5,5 @@ if(!@$_SESSION['logged']) {
     redirect('bb-admin/?module=dashboard&action=login');
 }
 
-require_once __DIR__ . '/tpl/index.tpl.php';
+tpl(__DIR__ . '/tpl/index.tpl.php');
 

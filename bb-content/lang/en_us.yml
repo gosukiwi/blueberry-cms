@@ -22,6 +22,20 @@ admin:
         title: 'Pages'
         manage: 'Manage Pages'
         new: 'New Page'
+        new_title: 'Create New Page'
+        form_title: 'Title'
+        btn_create: 'Create'
+        btn_back: 'Back'
+        errors:
+            title: 'The title is empty! You must add a title to your page'
+            content: 'The content is empty! Pages must have some text'
+        index:
+            title: 'Pages'
+            edit_page: 'Edit'
+            delete_page: 'Delete'
+        edit:
+            title: 'Edit Page'
+            btn_edit: 'Save Changes'
     menus: 
         title: 'Menus'
         manage: 'Manage Menus'

@@ -14,4 +14,4 @@ if($_POST) {
     }
 }
 
-require_once __DIR__ . '/tpl/login.tpl.php';
+tpl(__DIR__ . '/tpl/login.tpl.php');

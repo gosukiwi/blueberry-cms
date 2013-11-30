@@ -66,3 +66,26 @@ function bb($key) {
 function redirect($path) {
     header('Location:' . bb('base_uri') . $path);
 }
+
+function lib($name) {
+    if(is_array($name)) {
+        foreach($name as $lib) {
+            lib($lib);
+        }
+    } else {
+        require_once __DIR__ . '/' . $name . '.php';
+    }
+}
+
+function tpl($file, $vars = null) {
+    if(is_array($vars)) {
+       extract($vars);
+    }
+
+    require_once $file;
+}
+
+function either($a, $b) {
+    if($a) return $a;
+    return $b;
+}

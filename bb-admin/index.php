@@ -8,7 +8,7 @@ session_start();
 // Start output buffering
 ob_start();
 
-// Include the template function helpers
+// Include the magic global functions
 require_once __DIR__ . '/../bb-content/lib/functions.php';
 
 // Admin template extra helpers
@@ -22,6 +22,10 @@ function get_admin_footer() {
 
 function get_admin_sidebar() {
     require_once __DIR__ . '/modules/shared/tpl/sidebar.tpl.php';
+}
+
+function module_uri($name, $action = 'index', $params = array()) {
+    return bb('admin_uri') . '?' . http_build_query(array_merge(array('module' => $name, 'action' => $action), $params));
 }
 // End of admin template headers
 
