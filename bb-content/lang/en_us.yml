@@ -18,3 +18,17 @@ install:
     success: 'Blueberry is now installed. You can now log in by clicking <a href="{{url}}">here</a>.'
 admin:
     title: 'Blueberry Administration Panel'
+    pages: 
+        title: 'Pages'
+        manage: 'Manage Pages'
+        new: 'New Page'
+    menus: 
+        title: 'Menus'
+        manage: 'Manage Menus'
+        new: 'New Menu'
+    account: 
+        title: 'Account'
+        logout: 'Logout'
+    dashboard:
+        welcome: 'Welcome {{user}}!'
+        welcome_message: 'This is your dashboard, from here you can manage all your website! If you need help on a specific topic, see the <a href="https://github.com/gosukiwi/blueberry-cms/wiki" target="_blank">Blueberry Official Documentation</a>.'

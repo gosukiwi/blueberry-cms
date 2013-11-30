@@ -86,12 +86,27 @@ div#dashboard-menu-container {
 
 div#dashboard-content-container div#dashboard-content {
   padding-left: 7px;
-  padding-top: 4px; }
+  padding-top: 4px;
+  width: 99%; }
   div#dashboard-content-container div#dashboard-content h1 {
     font-weight: 300;
     margin: 0px;
     padding: 0px;
-    font-size: 30px; }
+    font-size: 25px;
+    margin-bottom: 10px;
+    text-transform: uppercase; }
+  div#dashboard-content-container div#dashboard-content h2 {
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 20px;
+    border-bottom: 1px solid #ccc; }
+  div#dashboard-content-container div#dashboard-content input {
+    margin-bottom: 5px; }
+  div#dashboard-content-container div#dashboard-content button {
+    margin-top: 5px;
+    text-transform: uppercase; }
+  div#dashboard-content-container div#dashboard-content a {
+    color: #444; }
 
 div#footer {
   text-align: center;
@@ -101,4 +116,5 @@ div#footer {
   width: 100%;
   padding: 10px;
   font-size: 13px;
-  border-top: 1px solid #ccc; }
+  border-top: 1px solid #ccc;
+  text-transform: lowercase; }

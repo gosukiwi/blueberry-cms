@@ -1,4 +1,6 @@
 <?php
+define('SCRIPT_START', microtime(true));
+
 define('BB-ADMIN', true);
 
 // Enable sessions

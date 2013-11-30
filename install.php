@@ -171,6 +171,15 @@ if($_POST) {
                         <?php endif; ?>
                     </div>
 
+                    <div class="alert">
+                        <?php echo __('install.is_uploads_dir_writable'); ?>
+                        <?php if(is_writable(__DIR__ . '/bb-content/uploads/')): ?>
+                            <strong><?php echo __('install.yes'); ?></strong>
+                        <?php else: ?>
+                        <strong><?php echo __('install.no'); ?></strong> - <?php echo __('install.uploads_dir_error'); ?>
+                        <?php endif; ?>
+                    </div>
+
                     <?php if($installed): ?>
 
                     <p id="success-message"><?php echo __('install.success', array('url' => 'bb-admin/')); ?></p>
