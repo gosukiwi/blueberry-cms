@@ -165,9 +165,19 @@ div#dashboard-content-container {
             margin-bottom: 5px;
         }
 
-        button {
-            margin-top: 5px;
-            text-transform: uppercase;
+        div.form-buttons {
+            text-align: center;
+            vertical-align: text-bottom;
+
+            button {
+                margin-top: 5px;
+                text-transform: uppercase;
+            }
+
+            a {
+                margin-top: 5px;
+                text-transform: uppercase;
+            }
         }
 
         table {

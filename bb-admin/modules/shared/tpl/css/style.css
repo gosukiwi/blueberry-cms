@@ -110,9 +110,15 @@ div#dashboard-content-container {
       border-bottom: 1px solid #ccc; }
     div#dashboard-content-container div#dashboard-content input {
       margin-bottom: 5px; }
-    div#dashboard-content-container div#dashboard-content button {
-      margin-top: 5px;
-      text-transform: uppercase; }
+    div#dashboard-content-container div#dashboard-content div.form-buttons {
+      text-align: center;
+      vertical-align: text-bottom; }
+      div#dashboard-content-container div#dashboard-content div.form-buttons button {
+        margin-top: 5px;
+        text-transform: uppercase; }
+      div#dashboard-content-container div#dashboard-content div.form-buttons a {
+        margin-top: 5px;
+        text-transform: uppercase; }
     div#dashboard-content-container div#dashboard-content table {
       width: 100%; }
       div#dashboard-content-container div#dashboard-content table td:last-child {

@@ -40,6 +40,11 @@ admin:
         title: 'Menus'
         manage: 'Manage Menus'
         new: 'New Menu'
+        save: 'Save'
+        btn_back: 'Back'
+        name: 'Name'
+        links: 'Links'
+        add: 'Add Link'
     account: 
         title: 'Account'
         logout: 'Logout'

@@ -98,9 +98,26 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
         $first = $db->table('test-table')->find(1);
         $this->assertNotNull($first);
         $first['new-val'] = 12;
-        $db->update(1, $first);
+        $db->table('test-table')->update(1, $first);
         $retrieve = $db->table('test-table')->find(1);
         $this->assertEquals(12, $retrieve['new-val']);
+    }
+
+    public function testSelect() {
+        $db = $this->db;
+
+        $entry = array(
+            'name' => 'john',
+            'age' => 18,
+        );
+
+        // insert test data
+        $db->table('test-table')->insert($entry);
+
+        // test it
+        $retrieved = $db->table('test-table')->select(array('name'))->find(1);
+        $this->assertEquals('john', $retrieved['name']);
+        $this->assertFalse(array_key_exists('age', $retrieved));
     }
 
     public function testCacheIsCreated() {

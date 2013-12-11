@@ -1,7 +1,8 @@
 <?php
 /*
  * Really simple database API
- * It's not fast, it's based on flat files, it does not use SQL and it's
+ * It's fast enough for most cases, as long as you don't have thousands of entries and complex queries
+ * It's based on flat files, it does not use SQL and it's
  * not based on SQLITE.
  *
  * It's just designed to run in environments when no database is available.
@@ -45,6 +46,10 @@ class Database
             throw new Exception('Can only write arrays');
         }
 
+        if($this->query->was_run()) {
+            throw new Exception('Query already ran');
+        }
+
         $table = $this->query->table;
         $id = 0;
         $meta = null;
@@ -79,11 +84,18 @@ class Database
             unlink($cache_file);
         }
 
+        // mark as executed
+        $this->query->run();
+
         // Return the new entry data
         return $obj;
     }
 
     public function update($id, $val) {
+        if($this->query->was_run()) {
+            throw new Exception('Query already ran');
+        }
+
         $table = $this->query->table;
         $entry_file = $this->data_dir . $table . '/entry_' . $id . '.php';
         if(!file_exists($entry_file)) {
@@ -97,6 +109,10 @@ class Database
             unlink($cache_file);
         }
 
+
+        // mark as executed
+        $this->query->run();
+
         return $val;
     }
 
@@ -104,6 +120,10 @@ class Database
      * Removes entry with the given id
      */
     public function remove($id) {
+        if($this->query->was_run()) {
+            throw new Exception('Query already ran');
+        }
+
         $table = $this->query->table;
 
         if(!file_exists($this->data_dir . $table . '/entry_' . $id . '.php')) {
@@ -117,11 +137,15 @@ class Database
         unlink($this->data_dir . $table . '/entry_' . $id . '.php');
         file_put_contents($this->data_dir . $table . '/meta.php', serialize($meta), LOCK_EX);
 
+        // mark as executed
+        $this->query->run();
+
         // chainability
         return $this;
     }
 
     public function find($id) {
+        
         $this->query->id = $id;
         return $this->findById();
     }
@@ -140,6 +164,12 @@ class Database
         return $this;
     }
 
+    public function select($keys) {
+        $this->query->select = $keys;
+
+        // chainability
+        return $this;
+    }
 
     public function offset($offset) {
         $this->query->offset = $offset;
@@ -179,22 +209,48 @@ class Database
     }
 
     private function findById() {
+        if($this->query->was_run()) {
+            throw new Exception('Query already ran');
+        }
+
         $table = $this->query->table;
+        $select = $this->query->select;
         $id = $this->query->id;
         $path = $this->data_dir . $table . '/entry_' . $id . '.php';
+
+        // mark query as executed
+        $this->query->run();
+
         if(file_exists($path)) {
-            return unserialize(file_get_contents($path));
+            $entry = unserialize(file_get_contents($path));
+            return is_null($select) ? $entry : $this->selectFields($select, $entry);
         }
 
         return null;
     }
 
+    private function selectFields($select, $entry) {
+        $new_entry = array();
+        foreach($select as $key) {
+            if(array_key_exists($key, $entry)) {
+                $new_entry[$key] = $entry[$key];
+            }
+        }
+
+        return $new_entry;
+    }
+
     private function findAll() {
+        if($this->query->was_run()) {
+            throw new Exception('Query already ran');
+        }
+
         $table = $this->query->table;
         $order = $this->query->order;
         $limit = $this->query->limit;
         $offset = $this->query->offset;
         $filter = $this->query->filter;
+        $select = $this->query->select;
 
         // seek for cache
         $cache_name = sha1($table . $order . $limit . $offset . serialize($filter));
@@ -223,7 +279,9 @@ class Database
 
         if(is_null($filter)) {
             foreach($entries as $id) {
-                $output[] = unserialize(file_get_contents($this->data_dir . $table . '/entry_' . $id . '.php'));
+                $entry = unserialize(file_get_contents($this->data_dir . $table . '/entry_' . $id . '.php'));
+                // check for select
+                $output[] = is_null($select) ? $entry : $this->selectFields($select, $entry);
             }
         } else {
             foreach($entries as $id) {
@@ -237,10 +295,13 @@ class Database
                 }
 
                 if($add) {
-                    $output[] = $entry;
+                    $output[] = is_null($select) ? $entry : $this->selectFields($select, $entry);
                 }
             }
         }
+
+        // mark query as executed
+        $this->query->run();
 
         // create cache
         file_put_contents($cache_file, serialize($output), LOCK_EX);
@@ -256,10 +317,28 @@ class Query
     public $offset = 0;
     public $id = 0;
     public $filter = null;
+    public $select = null;
+
+    // every time a method which returns data is called, the query must be set up all over again.
+    private $executed = false;
 
     public function __construct($name) {
         $this->table = $name;
         $this->order = 'ASC';
+    }
+
+    /**
+     * Mark this query as executed
+     */
+    public function run() {
+        $this->executed = true;
+    }
+
+    /**
+     * Whether this query was run or not
+     */
+    public function was_run() {
+        return $this->executed;
     }
 }
 

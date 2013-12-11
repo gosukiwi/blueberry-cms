@@ -8,8 +8,8 @@
 
         <h1><i class="fa fa-list-ul"></i> <?php echo __('admin.menus.title'); ?></h1>
         <ul>
-            <li><a href="<?php echo bb('admin_uri'); ?>?module=menus&action=manage"><?php echo __('admin.menus.manage'); ?></a></li>
-            <li><a href="<?php echo bb('admin_uri'); ?>?module=menus&action=manage"><?php echo __('admin.menus.new'); ?></a></li>
+            <li><a href="<?php echo bb('admin_uri'); ?>?module=menus"><?php echo __('admin.menus.manage'); ?></a></li>
+            <li><a href="<?php echo bb('admin_uri'); ?>?module=menus&action=new"><?php echo __('admin.menus.new'); ?></a></li>
         </ul>
         
         <h1><i class="fa fa-user"></i> <?php echo __('admin.account.title'); ?></h1>
